@@ -12,7 +12,7 @@ class Main {
 		// (le nombre total de joueurs correspond au nombre de noms dans le 
 		// tableau)
 		String[] playerNames = new String[]{"Marco", "Polo"};
-		// PrÃ©pare les piles "royaume" de la rÃ©serve (hors cartes communes)
+		// Prépare les piles "royaume" de la réserve (hors cartes communes)
 		List<CardList> kingdomStacks = new ArrayList<CardList>();
 		CardList stackVillage;
 		// Ajouter un bloc d'instructions pour chaque carte royaume Ã  utiliser
