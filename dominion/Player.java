@@ -225,7 +225,7 @@ public class Player {
 		return getGame().otherPlayers(this);
 	}
 	
-	/** Nouvelle méthode > transfère les carte d'une CardList à une autre
+	/** Nouvelle méthode > transfère les cartes d'une CardList à une autre
 	 * 
 	 * @param before la CardList où on prend la carte
 	 * @param after la CardList où on déplace la carte (destination)
