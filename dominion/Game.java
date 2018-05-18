@@ -1,11 +1,10 @@
 package dominion;
 import java.util.*;
-
 import dominion.card.*;
 import dominion.card.common.*;
 
 /**
- * Class reprÃ©sentant une partie de Dominion
+ * Class représentant une partie de Dominion
  */
 public class Game {
 	/**
@@ -19,103 +18,144 @@ public class Game {
 	private int currentPlayerIndex;
 	
 	/**
-	 * Liste des piles dans la rÃ©serve du jeu.
+	 * Liste des piles dans la réserve du jeu.
 	 * 
-	 * On suppose ici que toutes les listes contiennent des copies de la mÃªme
+	 * On suppose ici que toutes les listes contiennent des copies de la même
 	 * carte.
-	 * Ces piles peuvent Ãªtre vides en cours de partie si toutes les cartes de 
-	 * la pile ont Ã©tÃ© achetÃ©es ou gagnÃ©es par les joueurs.
+	 * Ces piles peuvent être vides en cours de partie si toutes les cartes de 
+	 * la pile ont été achetées ou gagnées par les joueurs.
 	 */
 	private List<CardList> supplyStacks;
 	
 	/**
-	 * Liste des cartes qui ont Ã©tÃ© Ã©cartÃ©es (trash)
+	 * Liste des cartes qui ont été écartées (trash)
 	 */
 	private CardList trashedCards;
 	
 	/**
-	 * Scanner permettant de lire les entrÃ©es au clavier
+	 * Scanner permettant de lire les entrées au clavier
 	 */
 	private Scanner scanner;
 	
 	/**
 	 * Constructeur
 	 * 
-	 * @param playerNames liste des noms des joueurs qui participent Ã  la 
-	 * partie. Le constructeur doit crÃ©er les objets correspondant aux joueurs
-	 * @param kingdomStacks liste de piles de rÃ©serve Ã  utiliser correspondant 
-	 * aux cartes "royaume" Ã  utiliser dans la partie, auxquelles le 
+	 * @param playerNames liste des noms des joueurs qui participent à la 
+	 * partie. Le constructeur doit créer les objets correspondant aux joueurs
+	 * @param kingdomStacks liste de piles de réserve à utiliser correspondant 
+	 * aux cartes "royaume" à utiliser dans la partie, auxquelles le 
 	 * constructeur doit ajouter les piles "communes":
 	 * - 60 Copper
 	 * - 40 Silver
 	 * - 30 Gold
-	 * - 8 (si 2 joueurs) ou 12 (si 3 ou 4 joueurs) Estate, Duchy et Province 	 * - 10 * (n-1) Curse oÃ¹ n est le nombre de joueurs dans la partie
+	 * - 8 (si 2 joueurs) ou 12 (si 3 ou 4 joueurs) Estate, Duchy et Province 	 * - 10 * (n-1) Curse où n est le nombre de joueurs dans la partie
 	 */
-	
-	public Game(ArrayList<String> playerNames, List<CardList> kingdomStacks) {
-		this.players = new Player[playerNames.size()];
-		for(int i = 0; i <= playerNames.size(); i++) {
-			players[i] = playerNames[i];
-		}
-	}
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
+		int i=0;
+		while(i<playerNames.length) {
+			this.players[i]=new Player(playerNames[i],this);
+		}
+		//ajout des joueurs dans players
+		
+		//création des piles de cartes communes
+		CardList copperStacks=new CardList();
+		CardList silverStacks=new CardList();
+		CardList goldStacks=new CardList();
+		
+		for(i=0;i<59;i++) {
+			copperStacks.add(new Copper());
+		}
+		
+		
 	}
 	
 	/**
-	 * Renvoie le joueur correspondant Ã  l'indice passÃ© en argument
+	 * Renvoie le joueur correspondant à l'indice passé en argument
 	 * On suppose {@code index} est un indice valide du tableau 
 	 * {@code this.players}
 	 * 
-	 * @param index indice dans le tableau des joueurs du joueur Ã  renvoyer
+	 * @param index indice dans le tableau des joueurs du joueur à renvoyer
 	 */
 	public Player getPlayer(int index) {
+		return this.players[index];
 	}
 	
 	/**
-	 * Renvoie le nombre de joueurs participant Ã  la partie
+	 * Renvoie le nombre de joueurs participant à la partie
 	 */
 	public int numberOfPlayers() {
+		return this.players.length;
 	}
 	
 	/**
-	 * Renvoie l'indice du joueur passÃ© en argument dans le tableau des 
+	 * Renvoie l'indice du joueur passé en argument dans le tableau des 
 	 * joueurs, ou -1 si le joueur n'est pas dans le tableau.
 	 */
 	private int indexOfPlayer(Player p) {
+		int taille=this.numberOfPlayers();
+		for(int i=0;i<taille;i++) {
+			if(players[i].equals(p)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	/**
-	 * Renvoie la liste des adversaires du joueur passÃ© en argument, dans 
-	 * l'ordre dans lequel ils apparaissent Ã  partir du joueur {@code p}.
+	 * Renvoie la liste des adversaires du joueur passé en argument, dans 
+	 * l'ordre dans lequel ils apparaissent à partir du joueur {@code p}.
 	 * 
 	 * @param p joueur dont on veut renvoyer la liste des adversaires. On 
 	 * suppose que {@code p} est bien dans le tableau des joueurs.
 	 * @return un {@code ArrayList} contenant les autres joueurs de la partie 
-	 * en commenÃ§ant par celui qui se trouve juste aprÃ¨s {@code p} et en 
-	 * terminant par celui qui se trouve juste avant (le tableau est considÃ©rÃ© 
-	 * comme cyclique c'est-Ã -dire qu'aprÃ¨s le premier Ã©lÃ©ment on revient au 
+	 * en commençant par celui qui se trouve juste après {@code p} et en 
+	 * terminant par celui qui se trouve juste avant (le tableau est considéré 
+	 * comme cyclique c'est-à-dire qu'après le premier élément on revient au 
 	 * premier).
 	 */
 	public List<Player> otherPlayers(Player p) {
+		List<Player> otherPlayers=new ArrayList<Player>();
+		int i=0;
+		while(players[i]!=p) {
+			i++;
+		}
+		int taille=players.length;
+		int j;
+		for(j=i+1;j<taille;j++) {
+			otherPlayers.add(players[j]);
+		}
+		for(j=0;j<i;j++) {
+			otherPlayers.add(players[j]);
+		}
+		return otherPlayers;
 	}
 	
 	/**
-	 * Renvoie la liste des cartes qui sont disponibles Ã  l'achat dans la 
-	 * rÃ©serve.
+	 * Renvoie la liste des cartes qui sont disponibles à l'achat dans la 
+	 * réserve.
 	 * 
-	 * @return une liste de cartes contenant la premiÃ¨re carte de chaque pile 
-	 * non-vide de la rÃ©serve (cartes royaume et cartes communes)
+	 * @return une liste de cartes contenant la première carte de chaque pile 
+	 * non-vide de la réserve (cartes royaume et cartes communes)
 	 */
 	public CardList availableSupplyCards() {
+		CardList boutique;
+		int taille = this.supplyStacks.size();
+		boutique=new CardList();
+		for(int i=0;i<taille;i++) {
+			if(!this.supplyStacks.get(i).isEmpty()) {
+				boutique.add(this.supplyStacks.get(i).get(0));
+			}
+		}
+		return boutique;
 	}
 	
 	/**
-	 * Renvoie une reprÃ©sentation de l'Ã©tat de la partie sous forme d'une chaÃ®ne
-	 * de caractÃ¨res.
+	 * Renvoie une représentation de l'état de la partie sous forme d'une chaîne
+	 * de caractères.
 	 * 
-	 * Cette reprÃ©sentation comporte
+	 * Cette représentation comporte
 	 * - le nom du joueur dont c'est le tour
-	 * - la liste des piles de la rÃ©serve en indiquant pour chacune :
+	 * - la liste des piles de la réserve en indiquant pour chacune :
 	 *   - le nom de la carte
 	 *   - le nombre de copies disponibles
 	 *   - le prix de la carte
@@ -137,45 +177,78 @@ public class Game {
 	}
 	
 	/**
-	 * Renvoie une carte de la rÃ©serve dont le nom est passÃ© en argument.
+	 * Renvoie une carte de la réserve dont le nom est passé en argument.
 	 * 
-	 * @param cardName nom de la carte Ã  trouver dans la rÃ©serve
-	 * @return la carte trouvÃ©e dans la rÃ©serve ou {@code null} si aucune carte 
+	 * @param cardName nom de la carte à trouver dans la réserve
+	 * @return la carte trouvée dans la réserve ou {@code null} si aucune carte 
 	 * ne correspond
 	 */
 	public Card getFromSupply(String cardName) {
+		int i;
+		int taille=supplyStacks.size();
+		for(i=0;i<taille;i++) {
+			if(supplyStacks.get(i).getCard(cardName)!=null) {
+				return supplyStacks.get(i).getCard(cardName);
+			}			
+		}
+		return null;
 	}
 	
 	/**
-	 * Retire et renvoie une carte de la rÃ©serve
+	 * Retire et renvoie une carte de la réserve
 	 * 
-	 * @param cardName nom de la carte Ã  retirer de la rÃ©serve
-	 * @return la carte retirÃ©e de la rÃ©serve ou {@code null} si aucune carte
-	 * ne correspond au nom passÃ© en argument
+	 * @param cardName nom de la carte à retirer de la réserve
+	 * @return la carte retirée de la réserve ou {@code null} si aucune carte
+	 * ne correspond au nom passé en argument
 	 */
 	public Card removeFromSupply(String cardName) {
+		int i;
+		int taille=supplyStacks.size();
+		for(i=0;i<taille;i++) {
+			if(this.supplyStacks.get(i).getCard(cardName)!=null) {
+				Card carte=this.getFromSupply(cardName);
+				carte=this.supplyStacks.get(i).remove(cardName);
+				return carte;
+			}			
+		}
+		return null;
 	}
 	
 	/**
-	 * Teste si la partie est terminÃ©e
+	 * Teste si la partie est terminée
 	 * 
-	 * @return un boolÃ©en indiquant si la partie est terminÃ©e, c'est-Ã -dire si
+	 * @return un booléen indiquant si la partie est terminée, c'est-à-dire si
 	 * au moins l'unedes deux conditions de fin suivantes est vraie
-	 *  - 3 piles ou plus de la rÃ©serve sont vides
-	 *  - la pile de Provinces de la rÃ©serve est vide
+	 *  - 3 piles ou plus de la réserve sont vides
+	 *  - la pile de Provinces de la réserve est vide
 	 * (on suppose que toute partie contient une pile de Provinces, et donc si 
-	 * aucune des piles non-vides de la rÃ©serve n'est une pile de Provinces, 
-	 * c'est que la partie est terminÃ©e)
+	 * aucune des piles non-vides de la réserve n'est une pile de Provinces, 
+	 * c'est que la partie est terminée)
 	 */
 	public boolean isFinished() {
+		boolean fini=false;
+		int compteur=0;
+		int taille=this.supplyStacks.size();
+		if(this.getFromSupply("Province")==null) {
+			return fini=true;
+		}
+		for(int i=0;i<taille;i++) {
+			if(this.supplyStacks.get(i).isEmpty()) {
+				compteur++;
+			}
+		}
+		if(compteur>2) {
+			return fini=true;
+		}
+		return fini;
 	}
 	
 	/**
-	 * Boucle d'exÃ©cution d'une partie.
+	 * Boucle d'exécution d'une partie.
 	 * 
-	 * Cette mÃ©thode exÃ©cute les tours des joueurs jusqu'Ã  ce que la partie soit
-	 * terminÃ©e. Lorsque la partie se termine, la mÃ©thode affiche le score 
-	 * final et les cartes possÃ©dÃ©es par chacun des joueurs.
+	 * Cette méthode exécute les tours des joueurs jusqu'à ce que la partie soit
+	 * terminée. Lorsque la partie se termine, la méthode affiche le score 
+	 * final et les cartes possédées par chacun des joueurs.
 	 */
 	public void run() {
 		while (! this.isFinished()) {
@@ -196,14 +269,14 @@ public class Game {
 	}
 	
 	/**
-	 * Lit une ligne de l'entrÃ©e standard
+	 * Lit une ligne de l'entrée standard
 	 * 
-	 * C'est cette mÃ©thode qui doit Ãªtre appelÃ©e Ã  chaque fois qu'on veut lire
-	 * l'entrÃ©e clavier de l'utilisateur (par exemple dans Player.choose), ce
+	 * C'est cette méthode qui doit être appelée à chaque fois qu'on veut lire
+	 * l'entrée clavier de l'utilisateur (par exemple dans Player.choose), ce
 	 * qui permet de n'avoir qu'un seul Scanner pour tout le programme
 	 * 
-	 * @return une chaÃ®ne de caractÃ¨res correspondant Ã  la ligne suivante de
-	 * l'entrÃ©e standard (sans le retour Ã  la ligne final)
+	 * @return une chaîne de caractères correspondant à la ligne suivante de
+	 * l'entrée standard (sans le retour à la ligne final)
 	 */
 	public String readLine() {
 		return this.scanner.nextLine();
