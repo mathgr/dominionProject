@@ -48,29 +48,71 @@ public class Game {
 	 * - 60 Copper
 	 * - 40 Silver
 	 * - 30 Gold
-	 * - 8 (si 2 joueurs) ou 12 (si 3 ou 4 joueurs) Estate, Duchy et Province 	 * - 10 * (n-1) Curse o� n est le nombre de joueurs dans la partie
+	 * - 8 (si 2 joueurs) ou 12 (si 3 ou 4 joueurs) Estate, Duchy et Province 	 
+	 * * - 10 * (n-1) Curse où n est le nombre de joueurs dans la partie
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
+		//ajout des joueurs dans players
 		int i=0;
 		while(i<playerNames.length) {
 			this.players[i]=new Player(playerNames[i],this);
 		}
-		//ajout des joueurs dans players
+
 		
 		//cr�ation des piles de cartes communes
-		CardList copperStacks=new CardList();
-		CardList silverStacks=new CardList();
-		CardList goldStacks=new CardList();
+		CardList copperStack=new CardList();
+		CardList silverStack=new CardList();
+		CardList goldStack=new CardList();
 		
+		//Création des piles de cartes spéciales
+		CardList estateStack=new CardList();
+		CardList duchyStack=new CardList();
+		CardList provinceStack=new CardList();
+		CardList curseStack=new CardList();
+		
+		//Ajout des cartes dans les piles correspondantes
 		for(i=0;i<59;i++) {
-			copperStacks.add(new Copper());
+			copperStack.add(new Copper());
 		}
 		for(i=0;i<39;i++) {
-			silverStacks.add(new Silver());
+			silverStack.add(new Silver());
 		}
 		for(i=0;i<29;i++) {
-			goldStacks.add(new Gold());
+			goldStack.add(new Gold());
 		}
+		for(i=0;i<10*(playerNames.length-1);i++) {
+			curseStack.add(new Curse());
+		}
+		
+		//cartes Victoires
+		if(playerNames.length==2) {
+			for(i=0;i<8;i++) {
+				estateStack.add(new Estate());
+				duchyStack.add(new Duchy());
+				provinceStack.add(new Province());
+			}
+		}
+		else if(playerNames.length==3 || playerNames.length==4) {
+			for(i=0;i<12;i++) {
+				estateStack.add(new Estate());
+				duchyStack.add(new Duchy());
+				provinceStack.add(new Province());
+			}
+		}
+		
+		//ensuite on ajoute toutes ces piles de cartes dans la réserve
+		this.supplyStacks.add(copperStack);
+		this.supplyStacks.add(silverStack);
+		this.supplyStacks.add(goldStack);
+		this.supplyStacks.add(curseStack);
+		this.supplyStacks.add(estateStack);
+		this.supplyStacks.add(duchyStack);
+		this.supplyStacks.add(provinceStack);
+		this.supplyStacks.addAll(kingdomStacks); //addAll car c'est une liste de CardList
+		
+		//initialisation de thrashedCards même si je ne vois pas
+		//où l'on s'en sert pour l'instant
+		this.trashedCards=new CardList();
 		
 		
 	}
