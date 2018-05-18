@@ -280,7 +280,7 @@ public class Game {
 		if(this.getFromSupply("Province")==null) {
 			return fini=true;
 		}
-		for(int i=0;i<taille;i++) {
+		for(int i=0;i<taille && compteur>2;i++) {
 			if(this.supplyStacks.get(i).isEmpty()) {
 				compteur++;
 			}
