@@ -43,7 +43,8 @@ public abstract class Card {
 	 * {@code ArrayList} vide, auquel les sous-classes ajouteront les types.
 	 */
 	public List<CardType> getTypes() {
-		return ;
+		List<CardType> TypeList=new ArrayList<CardType>();
+		return TypeList;
 	}
 	
 	/**

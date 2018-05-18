@@ -12,4 +12,10 @@ public abstract class ActionCard extends Card {
 		super(name, cost);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public List<CardType> getTypes() {
+		List<CardType> TypeList=super.getTypes();
+		TypeList.add(CardType.Action);
+		return TypeList;
+	}
 }
