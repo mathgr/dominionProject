@@ -13,4 +13,10 @@ public class Duchy extends VictoryCard {
 	public int victoryValue(Player p) {
 		return 3;
 	}
+
+	@Override
+	public void play(Player p) {
+		// carte de victoire, donc juste comptabilisée à la fin de la partie
+		
+	}
 }
