@@ -52,7 +52,7 @@ public abstract class Card {
 	 * (ici la fonction renvoie le nom de la carte)
 	 */
 	public String toString() {
-		return name;
+		return "Nom: " + name + "\n" + "Coût: " + cost;
 	}
 	
 	/**
@@ -75,7 +75,9 @@ public abstract class Card {
 	 * (la méthode devra donc être redéfinie pour les cartes ayant une valeur 
 	 * non nulle).
 	 */
-	public int victoryValue(Player p) {
-		return 0;
+	public int victoryValue(Player p) { //attention méthode peut être fausse, à re-vérifier sur l'appel de la fonction victoryValue
+		if(getTypes().contains(CardType.Victory)) {
+			return victoryValue(p);
+		};
 	}
 }
