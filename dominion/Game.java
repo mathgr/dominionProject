@@ -224,6 +224,14 @@ public class Game {
 		return r;
 	}
 	
+	/** Ajout d'une carte dans la pile des cartes écartés
+	 * 
+	 * @param c la carte à écarter (à mettre dans la pile trashedCards)
+	 */
+	public void trashCard(Card c) {
+		trashedCards.add(c);
+	}
+	
 	/**
 	 * Renvoie une carte de la r�serve dont le nom est pass� en argument.
 	 * 
