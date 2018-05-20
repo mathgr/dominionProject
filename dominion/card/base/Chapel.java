@@ -25,7 +25,7 @@ public class Chapel extends ActionCard {
 		}
 		
 		while(!cardName.equals("")) {
-			cardName = p.chooseCard("Choississez une carte de votre main à écarter (Entrée pour passer) : ", p.cardsInHand(), true);
+			cardName = p.chooseCard("Choisissez une carte de votre main à écarter (Entrée pour passer) : ", p.getHand(), true);
 			if(!cardName.equals("")) {
 				if(!cardName.equals("Chapel") || cptCCards > 1 ) {
 					p.getGame().trashCard(p.getHand().remove(cardName));
