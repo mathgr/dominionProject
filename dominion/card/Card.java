@@ -75,9 +75,7 @@ public abstract class Card {
 	 * (la méthode devra donc être redéfinie pour les cartes ayant une valeur 
 	 * non nulle).
 	 */
-	public int victoryValue(Player p) { //attention méthode peut être fausse, à re-vérifier sur l'appel de la fonction victoryValue
-		if(getTypes().contains(CardType.Victory)) {
-			return victoryValue(p);
-		};
+	public int victoryValue(Player p) {
+		return 0;
 	}
 }
