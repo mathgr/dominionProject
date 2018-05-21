@@ -52,11 +52,13 @@ public class Game {
 	 * * - 10 * (n-1) Curse où n est le nombre de joueurs dans la partie
 	 */
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
+		this.scanner = new Scanner(System.in);
 		//ajout des joueurs dans players
 		int i=0;
 		this.players=new Player[playerNames.length];
 		while(i<playerNames.length) {
 			this.players[i]=new Player(playerNames[i],this);
+			i++;
 		}
 
 		
