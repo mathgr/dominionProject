@@ -22,20 +22,24 @@ public class Spy extends AttackCard {
 		p.incrementActions(1);
 		
 		String choice;
-		
-		System.out.println("Le joueur " + p.getName() + " dévoile la première carte de son deck : " + p.getDraw().get(0).toString());
-		System.out.println("Voulez-vous la défausser (sinon elle est replacée sur votre deck) : (y/n)");
-		choice = p.getGame().readLine();
-		if(choice.equals("y")) {
-			p.gain(p.drawCard());
+		if(p.getDraw().get(0).toString()!=null) {
+			System.out.println("Le joueur " + p.getName() + " dévoile la première carte de son deck : " + p.getDraw().get(0).toString());
+			System.out.println("Voulez-vous la défausser (sinon elle est replacée sur votre deck) : (y/n)");
+			choice = p.getGame().readLine();
+			if(choice.equals("y")) {
+				p.getDiscard().add(p.getDraw().get(0));
+			}
 		}
 		
 		for(Player pl : p.otherPlayers()) {
-			System.out.println("Le joueur " + pl.getName() + " dévoile la première carte de son deck : " + pl.getDraw().get(0).toString());
-			System.out.println("Voulez-vous la défausser (sinon elle est replacée sur votre deck) : (y/n)");
-			choice = pl.getGame().readLine();
-			if(choice.equals("y")) {
-				pl.gain(pl.drawCard());
+			if(pl.getDraw().get(0).toString()!=null) {
+				System.out.println("Le joueur " + pl.getName() + " dévoile la première carte de son deck : " + pl.getDraw().get(0).toString());
+				System.out.println("Voulez-vous la défausser (sinon elle est replacée sur votre deck) : (y/n)");
+				choice = pl.getGame().readLine();
+	
+				if(choice.equals("y")) {
+					pl.getDiscard().add(pl.getDraw().get(0));
+				}
 			}
 		}
 		
