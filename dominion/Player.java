@@ -301,7 +301,7 @@ public class Player {
 	public CardList getActionCards() {
 		CardList actionCards = new CardList();
 		for(int i = 0; i < hand.size(); i++) {
-			if(hand.get(i).getTypes().contains(CardType.Action)) {
+			if(hand.get(i).getTypes().contains(CardType.Action) || hand.get(i).getTypes().contains(CardType.Attack)) {
 				actionCards.add(hand.get(i));
 			}
 		}

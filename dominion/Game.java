@@ -110,8 +110,7 @@ public class Game {
 		this.supplyStacks.add(provinceStack);
 		this.supplyStacks.addAll(kingdomStacks); //addAll car c'est une liste de CardList
 		
-		//initialisation de thrashedCards même si je ne vois pas
-		//où l'on s'en sert pour l'instant
+		//initialisation de thrashedCards 
 		this.trashedCards=new CardList();
 		
 		

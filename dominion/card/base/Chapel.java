@@ -1,4 +1,5 @@
 package dominion.card.base;
+import java.util.*;
 import dominion.*;
 import dominion.card.*;
 
@@ -16,20 +17,14 @@ public class Chapel extends ActionCard {
 	@Override
 	public void play(Player p) {
 		String cardName = "in"; //pour rentrer dans la boucle
-		int cptCCards = 0; //compte le nombre de cartes Chapel dans la main du joueur
+		int cptCards = 0; //compte le nombre de cartes écartées par le joueur
+
 		
-		for(Card c: p.getHand()) {
-			if(c.getName().equals("Chapel")) {
-				cptCCards++;
-			}
-		}
-		
-		while(!cardName.equals("")) {
+		while(!cardName.equals("") && cptCards <= 4) {
 			cardName = p.chooseCard("Choisissez une carte de votre main à écarter (Entrée pour passer) : ", p.getHand(), true);
 			if(!cardName.equals("")) {
-				if(!cardName.equals("Chapel") || cptCCards > 1 ) {
-					p.getGame().trashCard(p.getHand().remove(cardName));
-				}
+				p.getGame().trashCard(p.getHand().remove(cardName));
+				cptCards++;
 			}
 		}
 	}

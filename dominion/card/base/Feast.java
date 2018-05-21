@@ -1,4 +1,5 @@
 package dominion.card.base;
+import java.util.*;
 import dominion.*;
 import dominion.card.*;
 
@@ -16,11 +17,16 @@ public class Feast extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		// String cardName = p.chooseCard("Choisissez le nom d'une carte de votre main à écarter : ", p.cardsInHand(), false);
 		p.getGame().trashCard(this);
 		p.getHand().remove(this);
 		
-		String cardName = p.chooseCard("Choisissez le nom d'une carte que vous souhaitez gagner : ", p.getGame().availableSupplyCards(), false);
+		CardList availableCards = new CardList();
+		for(Card c : p.getGame().availableSupplyCards()) {
+			if(c.getCost() <=5) {
+				availableCards.add(c);
+			}
+		}
+		String cardName = p.chooseCard("Choisissez le nom d'une carte que vous souhaitez gagner : ", availableCards, false);
 		p.gain(cardName);
 	}
 }

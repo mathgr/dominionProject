@@ -16,15 +16,19 @@ public class Adventurer extends ActionCard {
 	@Override
 	public void play(Player p) {
 		int cptTreasureCards = 0;
+		CardList revealedCards = new CardList();
 		while(p.getDraw().size() != 0 && cptTreasureCards != 0) {
-			System.out.println(p.getDraw().get(0).toString()); //on dévoile la carte
-			if(p.getDraw().get(0).getTypes().contains(CardType.Treasure)) { //dans le cas où la première carte de la pioche du joueur est une carte de type Treasure
+			System.out.println(p.drawCard().toString()); //on dévoile la carte piochée
+			if(p.drawCard().getTypes().contains(CardType.Treasure)) { //dans le cas où la  carte piochée est une carte de type Treasure
 				cptTreasureCards++;
 				p.transfer(p.getDraw(), p.getHand()); //ajoute la carte Treasure dans la main du joueur
 			}
 			else {
-				p.transfer(p.getDraw(), p.getDiscard()); //défausse la carte dévoilée
+				p.transfer(p.getDraw(), revealedCards); //défausse la carte dévoilée dans un liste de carte intermédiaire : évite de la remettre dans la défausse pour éviter de faire une boucle infinie (si le joueur n'a qu'une carte de type Treasure
 			}
+		}
+		for(Card c : revealedCards) { //défausse en fin de tour les cartes dévoilées
+			p.transfer(revealedCards, p.getDiscard());
 		}
 	}
 	

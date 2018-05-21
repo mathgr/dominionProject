@@ -11,13 +11,16 @@ import dominion.card.*;
 public class Thief extends AttackCard {
 
 	public Thief() {
-		super("Thief", );
-		// TODO Auto-generated constructor stub
+		super("Thief", 4);
 	}
 
 	@Override
 	public void play(Player p) {
-		// TODO Auto-generated method stub
+		CardList trashedCards = new CardList();
+		for(Player pl : p.getGame().otherPlayers(p)) {
+			System.out.println("Au joueur " + pl.getName() + " de dévoiler les 2 premières cartes de son deck...");
+			
+		}
 		
 	}
 	

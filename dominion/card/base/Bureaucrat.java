@@ -23,6 +23,13 @@ public class Bureaucrat extends AttackCard {
 			if(!pl.getVictoryCards().isEmpty()) {
 				cardNameToReveal = pl.chooseCard("Le joueur " + pl.getName() + " doit jouer." + "Saisissez le nom d'une carte victoire de votre main à dévoiler : ", pl.getVictoryCards(), false);
 				System.out.println("Carte dévoilée : " + cardNameToReveal);
+				pl.getDraw().add(pl.getHand().remove(cardNameToReveal));
+			}
+			else {
+				System.out.println("Le joueur " + pl.getName() + " n'a pas de carte Victoire, il dévoile toute sa main...");
+				for(Card c : pl.getHand()) {
+					System.out.println("Carte dévoilée : " + c.getName());
+				}
 			}
 		}
 		

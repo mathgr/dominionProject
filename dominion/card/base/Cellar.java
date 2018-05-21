@@ -1,4 +1,5 @@
 package dominion.card.base;
+import java.util.*;
 import dominion.*;
 import dominion.card.*;
 
@@ -31,6 +32,7 @@ public class Cellar extends ActionCard {
 				// en pioche une autre
 				p.gain(p.getHand().remove(cardName));
 				p.getHand().add(p.drawCard());
+				p.getDraw().remove(0);
 			}
 		}
 		
