@@ -21,5 +21,12 @@ public class Moat extends ReactionCard {
 		for(int i = 0; i < 2; i++) {
 			p.getHand().add(p.drawCard());
 		}
+		
+	}
+	
+	public boolean devoileCarte(Player p){
+		String answer = p.choose("Do you want to play your moat card ?", new ArrayList<String>(Arrays.asList("y", "n")), false);
+		if(answer.equalsIgnoreCase("y")) return true;
+		else return false;
 	}
 }
