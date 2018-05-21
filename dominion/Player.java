@@ -176,18 +176,10 @@ public class Player {
 	 */
 	public CardList totalCards() {
 		CardList totalCards = new CardList();
-		totalCards = this.cardsInHand(); //attention aux références
-		int size;
-		
-		size = getDiscard().size();
-		for(int i = 0; i <= size - 1 ;i++) {
-			totalCards.add(getDiscard().get(i));
-		}
-		
-		size = getDraw().size();
-		for(int i = 0; i <= size - 1 ;i++) {
-			totalCards.add(getDraw().get(i));
-		}
+		totalCards.addAll(this.hand);
+		totalCards.addAll(this.discard);
+		totalCards.addAll(this.draw);
+		totalCards.addAll(this.inPlay);
 		return totalCards;
 	}
 	
@@ -200,11 +192,9 @@ public class Player {
 	 */
 	public int victoryPoints() {
 		int points = 0;
-		CardList totalCards = new CardList();
-		totalCards = this.totalCards();
-		int size = totalCards.size();
-		for(int i = 0; i <= size - 1; i++) {
-			points = points + totalCards.get(i).victoryValue(this);
+		
+		for(Card c : totalCards()) {
+			points += c.victoryValue(this);
 		}
 		return points;
 	}
@@ -221,10 +211,10 @@ public class Player {
 	 * de la classe {@code Game}.
 	 */
 	public List<Player> otherPlayers() {
-		return getGame().otherPlayers(this);
+		return game.otherPlayers(this);
 	}
 	
-	/** Nouvelle méthode > transfère les cartes d'une CardList à une autre
+	/** Nouvelle méthode > transfère la première carte d'une CardList à une autre
 	 * 
 	 * @param before la CardList où on prend la carte
 	 * @param after la CardList où on déplace la carte (destination)
@@ -347,8 +337,8 @@ public class Player {
 	 * fait rien.
 	 */
 	public void playCard(String cardName) {
-		if(cardsInHand().contains(cardsInHand().getCard(cardName))) {
-			this.playCard(cardsInHand().getCard(cardName));
+		if(hand.getCard(cardName) != null) {
+			this.playCard(hand.getCard(cardName));
 		}
 	}
 	
@@ -363,7 +353,7 @@ public class Player {
 	 */
 	public void gain(Card c) {
 		if(c != null) {
-			getDiscard().add(c);
+			discard.add(c);
 		}
 	}
 	
@@ -377,8 +367,7 @@ public class Player {
 	 * null} si aucune carte n'a été prise dans la réserve.
 	 */
 	public Card gain(String cardName) {
-		Card c;
-		c = getGame().removeFromSupply(cardName);
+		Card c = getGame().removeFromSupply(cardName);
 		this.gain(c);
 		return c;
 	}
@@ -400,7 +389,8 @@ public class Player {
 	public Card buyCard(String cardName) {
 		if(game.getFromSupply(cardName) !=null ) {
 			if(money >= game.getFromSupply(cardName).getCost()) {
-				incrementMoney(- game.getFromSupply(cardName).getCost()); //achète la carte
+				int cost = game.getFromSupply(cardName).getCost();
+				incrementMoney(-cost); //achète la carte
 				incrementBuys(-1); //décrémente de 1 le nombre d'achats
 				return gain(cardName);
 			}
@@ -552,6 +542,7 @@ public class Player {
 		for(int j = 0; j < inPlay.size(); j++) {
 			transfer(inPlay, discard);
 		}
+		draw.shuffle();
 		for(int k = 0; k < 5; k++) {
 			hand.add(drawCard());
 		}
@@ -587,24 +578,24 @@ public class Player {
 	 * du joueur
 	 */
 	public void playTurn() {
-		String cardNameOne, cardNameTwo;
+		String cardNameOne = "in";
+		String cardNameTwo = "in";
 		
 		this.startTurn();
 		
-		while(actions != 0) {			
+		while(actions != 0 && !cardNameOne.equals("")) {			
 			cardNameOne = this.chooseCard("Entrer le nom d'une carte action que tu veux jouer (entrée pour passer).", this.getActionCards(), true);		
 			if(cardNameOne != "") {
 				this.playCard(cardNameOne);
 				this.incrementActions(-1);
 			}
-			else break;
 		}
 		
 		for(int i = 0; i < getTreasureCards().size(); i++) {
-			this.playCard(getTreasureCards().get(0));
+			this.playCard(getTreasureCards().get(0).getName());
 		}
 		
-		while(buys != 0) {
+		while(buys != 0 && money > 0 && !cardNameTwo.equals("")) {
 			cardNameTwo = this.chooseCard("Entrer le nom d'une carte que tu veux jouer (entrée pour passer)", game.availableSupplyCards(), true);
 			if(cardNameTwo != "") {
 				this.buyCard(cardNameTwo);
