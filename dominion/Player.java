@@ -387,14 +387,11 @@ public class Player {
 	 * lieu
 	 */
 	public Card buyCard(String cardName) {
-		if(game.getFromSupply(cardName) !=null ) {
-			if(money >= game.getFromSupply(cardName).getCost()) {
-				int cost = game.getFromSupply(cardName).getCost();
-				incrementMoney(-cost); //achète la carte
-				incrementBuys(-1); //décrémente de 1 le nombre d'achats
-				return gain(cardName);
-			}
-			else return null;
+		if(game.getFromSupply(cardName) !=null && money >= game.getFromSupply(cardName).getCost() && buys > 0) {
+			int cost = game.getFromSupply(cardName).getCost();
+			incrementMoney(-cost); //achète la carte
+			incrementBuys(-1); //décrémente de 1 le nombre d'achats
+			return gain(cardName);
 		}
 		else return null;
 	}

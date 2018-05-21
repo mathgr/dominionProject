@@ -22,4 +22,12 @@ public class Moat extends ReactionCard {
 			p.getHand().add(p.drawCard());
 		}
 	}
+	
+	public boolean revealCard(Player p) {
+		ArrayList<String> choice = new ArrayList<String>();
+		choice.add("y");
+		choice.add("n");
+		String answer = p.choose("Voulez-vous jouuer cette carte en tant que carte Réaction ? (y/n) ", choice, false);
+		return answer == "y";
+	}
 }
