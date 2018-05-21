@@ -24,8 +24,7 @@ public class CouncilRoom extends ActionCard {
 		}
 
 		p.incrementBuys(1);
-
-		for(Player pl : p.getGame().otherPlayers(p)) {
+		for(Player pl : p.otherPlayers()) {
 			pl.getHand().add(pl.drawCard());
 		}
 	}
