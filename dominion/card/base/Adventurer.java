@@ -16,20 +16,32 @@ public class Adventurer extends ActionCard {
 
 	@Override
 	public void play(Player p) {
+		
 		int cptTreasureCards = 0;
 		CardList revealedCards = new CardList();
-		while(p.getDraw().size() != 0 && cptTreasureCards != 0) {
-			System.out.println(p.getDraw().get(0).toString()); //on dévoile la première carte de la pioche
-			if(p.getDraw().get(0).getTypes().contains(CardType.Treasure)) { //dans le cas où la  carte piochée est une carte de type Treasure
+		CardList treasureCards = new CardList();
+		Card c = p.drawCard();
+		
+		while(c != null && cptTreasureCards < 2) {
+			
+			System.out.println(c.toString()); //on dévoile la première carte de la pioche
+			
+			if(c.getTypes().contains(CardType.Treasure)) { //dans le cas où la  carte piochée est une carte de type Treasure
 				cptTreasureCards++;
-				p.transfer(p.getDraw(), p.getHand()); //ajoute la carte Treasure dans la main du joueur
+				treasureCards.add(c);
 			}
 			else {
-				p.transfer(p.getDraw(), revealedCards); //défausse la carte dévoilée dans un liste de carte intermédiaire : évite de la remettre dans la défausse pour éviter de faire une boucle infinie (si le joueur n'a qu'une carte de type Treasure
+				revealedCards.add(c); //défausse la carte dévoilée dans un liste de carte intermédiaire : évite de la remettre dans la défausse pour éviter de faire une boucle infinie (si le joueur n'a qu'une carte de type Treasure
 			}
+			c = p.drawCard();
 		}
-		for(Card c : revealedCards) { //défausse en fin de tour les cartes dévoilées
-			p.transfer(revealedCards, p.getDiscard());
+		
+		
+		for(Card ca : revealedCards) { //défausse en fin de tour les cartes dévoilées
+			p.gain(revealedCards.remove(ca.getName()));
+		}
+		for(Card ca : treasureCards) { //ajoute les catres Treasure dans la main du joueur
+			p.getHand().add(ca);
 		}
 	}
 	

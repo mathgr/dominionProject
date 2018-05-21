@@ -18,8 +18,7 @@ public class Spy extends AttackCard {
 
 	@Override
 	public void play(Player p) {
-		p.getHand().add(p.drawCard());
-		
+		p.getHand().add(p.drawCard());	
 		p.incrementActions(1);
 		
 		String choice;
