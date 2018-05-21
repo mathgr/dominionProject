@@ -13,17 +13,18 @@ import dominion.card.*;
 public class CouncilRoom extends ActionCard {
 
 	public CouncilRoom() {
-		super("CouncilRoom", 5);
+		super("Council Room", 5);
 	}
 
 	@Override
 	public void play(Player p) {
 	
+		p.incrementBuys(1);
+		
 		for(int i = 0; i < 4; i++) {
 			p.getHand().add(p.drawCard());
 		}
 
-		p.incrementBuys(1);
 		for(Player pl : p.otherPlayers()) {
 			pl.getHand().add(pl.drawCard());
 		}
