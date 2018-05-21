@@ -54,6 +54,7 @@ public class Game {
 	public Game(String[] playerNames, List<CardList> kingdomStacks) {
 		//ajout des joueurs dans players
 		int i=0;
+		this.players=new Player[playerNames.length];
 		while(i<playerNames.length) {
 			this.players[i]=new Player(playerNames[i],this);
 		}
