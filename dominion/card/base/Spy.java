@@ -17,32 +17,30 @@ public class Spy extends AttackCard {
 	}
 
 	@Override
+	
 	public void play(Player p) {
-		p.getHand().add(p.drawCard());	
+		p.getHand().add(p.drawCard());
 		p.incrementActions(1);
 		
+		Player pl;
+		Card carte;
 		String choice;
-		if(p.getDraw().get(0).toString()!=null) {
-			System.out.println("Le joueur " + p.getName() + " dévoile la première carte de son deck : " + p.getDraw().get(0).toString());
-			System.out.println("Voulez-vous la défausser (sinon elle est replacée sur votre deck) : (y/n)");
-			choice = p.getGame().readLine();
-			if(choice.equals("y")) {
-				p.getDiscard().add(p.getDraw().get(0));
-			}
-		}
 		
-		for(Player pl : p.otherPlayers()) {
-			if(pl.getDraw().get(0).toString()!=null) {
-				System.out.println("Le joueur " + pl.getName() + " dévoile la première carte de son deck : " + pl.getDraw().get(0).toString());
-				System.out.println("Voulez-vous la défausser (sinon elle est replacée sur votre deck) : (y/n)");
-				choice = pl.getGame().readLine();
-	
-				if(choice.equals("y")) {
-					pl.getDiscard().add(pl.getDraw().get(0));
+		for(int i = 0; i < p.getGame().numberOfPlayers(); i++) {
+			pl = p.getGame().getPlayer(i);
+			carte = pl.drawCard();
+			if(carte != null) {
+				if(pl.getHand().getCard("Moat") == null){
+					choice = p.choose("Défausser (y) ou remettre cette carte dans le deck (n)?", new ArrayList<String>(Arrays.asList("y", "n")), false);
+				
+					if(choice .equalsIgnoreCase("y")) {
+						pl.gain(carte);
+					}else if(choice.equalsIgnoreCase("n")) {
+						pl.getDraw().add(carte);
+					}
 				}
 			}
 		}
-		
 	}
 	
 }
