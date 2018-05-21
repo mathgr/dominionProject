@@ -22,7 +22,7 @@ public class Adventurer extends ActionCard {
 		CardList treasureCards = new CardList();
 		Card c;
 		
-		while((c=p.drawCard()) != null && cptTreasureCards < 2) {
+		while(cptTreasureCards < 2 && (c=p.drawCard()) != null) {
 			
 			System.out.println("Carte dévoilée : "+c.toString()); //on dévoile la carte piochée
 			if(c.getTypes().contains(CardType.Treasure)) { //dans le cas où la  carte piochée est une carte de type Treasure
@@ -32,10 +32,7 @@ public class Adventurer extends ActionCard {
 			else {
 				revealedCards.add(c); //défausse la carte dévoilée dans un liste de carte intermédiaire : évite de la remettre dans la défausse pour éviter de faire une boucle infinie (si le joueur n'a qu'une carte de type Treasure
 			}
-			c = p.drawCard();
 		}
-		
-		
 		p.getDiscard().addAll(revealedCards);//défaussage des cartes révélées
 		p.getHand().addAll(treasureCards);//ajout des cartes trésor dans la main du joueur
 		
