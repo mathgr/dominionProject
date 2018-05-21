@@ -32,7 +32,6 @@ public class Cellar extends ActionCard {
 				// en pioche une autre
 				p.gain(p.getHand().remove(cardName));
 				p.getHand().add(p.drawCard());
-				p.getDraw().remove(0);
 			}
 		}
 		

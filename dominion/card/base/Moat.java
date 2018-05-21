@@ -20,7 +20,6 @@ public class Moat extends ReactionCard {
 	public void play(Player p) {
 		for(int i = 0; i < 2; i++) {
 			p.getHand().add(p.drawCard());
-			p.getDraw().remove(0);
 		}
 	}
 }

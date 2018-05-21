@@ -1,6 +1,5 @@
 package dominion;
 import java.util.*;
-
 import dominion.card.*;
 import dominion.card.common.Copper;
 import dominion.card.common.Estate;
@@ -248,18 +247,18 @@ public class Player {
 	 * @return la carte piochée, {@code null} si aucune carte disponible
 	 */
 	public Card drawCard() {
-		if(getDraw().isEmpty()) {
-			getDiscard().shuffle();
-			int size = getDiscard().size();
+		if(draw.isEmpty()) {
+			discard.shuffle();
+			int size = discard.size();
 			for(int i = 0; i < size; i++) {
-				this.transfer(getDiscard(), getDraw());
+				this.transfer(discard, draw);
 			}
 		}
-		if(getDraw().isEmpty()) {
+		if(draw.isEmpty()) {
 			return null;
 		}
 		else {
-			return getDraw().get(0);
+			return draw.remove(0);
 		}
 	}
 	
@@ -554,7 +553,7 @@ public class Player {
 			transfer(inPlay, discard);
 		}
 		for(int k = 0; k < 5; k++) {
-			drawCard();
+			hand.add(drawCard());
 		}
 		
 	}

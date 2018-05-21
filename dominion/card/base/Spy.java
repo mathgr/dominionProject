@@ -19,7 +19,6 @@ public class Spy extends AttackCard {
 	@Override
 	public void play(Player p) {
 		p.getHand().add(p.drawCard());
-		p.getDraw().remove(0);
 		
 		p.incrementActions(1);
 		
@@ -30,7 +29,6 @@ public class Spy extends AttackCard {
 		choice = p.getGame().readLine();
 		if(choice.equals("y")) {
 			p.gain(p.drawCard());
-			p.getDraw().remove(p.drawCard());
 		}
 		
 		for(Player pl : p.getGame().otherPlayers(p)) {
@@ -39,7 +37,6 @@ public class Spy extends AttackCard {
 			choice = pl.getGame().readLine();
 			if(choice.equals("y")) {
 				pl.gain(pl.drawCard());
-				pl.getDraw().remove(pl.drawCard());
 			}
 		}
 		

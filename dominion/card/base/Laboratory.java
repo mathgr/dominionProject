@@ -18,7 +18,6 @@ public class Laboratory extends ActionCard {
 	public void play(Player p) {
 		for(int i = 0; i < 2; i++ ) {
 			p.getHand().add(p.drawCard()); //ajoute à la main du joueur une carte piochée
-			p.getDraw().remove(0); //enlève de la pioche la carte piochée
 		}
 		p.incrementActions(1);
 	}

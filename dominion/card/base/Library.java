@@ -18,21 +18,18 @@ public class Library extends ActionCard {
 		String s;
 		CardList cl = new CardList(); //liste des cartes mises de côté
 		while(p.getHand().size() < 7) {
-			if(p.drawCard().getTypes().contains(CardType.Action)) {
+			if(p.getDraw().get(0).getTypes().contains(CardType.Action)) {
 				System.out.println("Voulez-vous mettre de côté cette carte action : (y/n)");
 				s = p.getGame().readLine();
 				if(s.equals("y")) {
 					cl.add(p.drawCard());
-					p.getDraw().remove(0);
 				}
 				else {
 					p.getHand().add(p.drawCard());
-					p.getDraw().remove(0);
 				}
 			}
 			else {
 				p.getHand().add(p.drawCard());
-				p.getDraw().remove(0);
 			}
 		}
 		for(int i = 0; i < cl.size(); i++) {

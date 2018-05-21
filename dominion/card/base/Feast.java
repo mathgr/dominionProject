@@ -27,6 +27,6 @@ public class Feast extends ActionCard {
 			}
 		}
 		String cardName = p.chooseCard("Choisissez le nom d'une carte que vous souhaitez gagner : ", availableCards, false);
-		p.gain(cardName);
+		p.gain(p.getGame().removeFromSupply(cardName));
 	}
 }

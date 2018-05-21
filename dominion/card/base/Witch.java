@@ -20,7 +20,6 @@ public class Witch extends AttackCard {
 
 		for(int i = 0; i < 2; i++) {
 			p.getHand().add(p.drawCard());
-			p.getDraw().remove(0);
 		}
 		
 		for(Player pl : p.getGame().otherPlayers(p)) {

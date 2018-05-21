@@ -1,4 +1,5 @@
 package dominion.card.base;
+import java.util.*;
 import dominion.*;
 import dominion.card.*;
 
@@ -18,8 +19,8 @@ public class Adventurer extends ActionCard {
 		int cptTreasureCards = 0;
 		CardList revealedCards = new CardList();
 		while(p.getDraw().size() != 0 && cptTreasureCards != 0) {
-			System.out.println(p.drawCard().toString()); //on dévoile la carte piochée
-			if(p.drawCard().getTypes().contains(CardType.Treasure)) { //dans le cas où la  carte piochée est une carte de type Treasure
+			System.out.println(p.getDraw().get(0).toString()); //on dévoile la première carte de la pioche
+			if(p.getDraw().get(0).getTypes().contains(CardType.Treasure)) { //dans le cas où la  carte piochée est une carte de type Treasure
 				cptTreasureCards++;
 				p.transfer(p.getDraw(), p.getHand()); //ajoute la carte Treasure dans la main du joueur
 			}

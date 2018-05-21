@@ -127,8 +127,7 @@ public class TestGame extends Test {
 
 	public static void main(String[] args) {
 		TestGame t = new TestGame();
-//		t.run();
-		t.runTest("Nombre de joueurs", TestGame::testNbPlayers);
+		t.run();
 		t.showResults();
 	}
 }
