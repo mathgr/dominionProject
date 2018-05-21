@@ -52,7 +52,7 @@ public abstract class Card {
 	 * (ici la fonction renvoie le nom de la carte)
 	 */
 	public String toString() {
-		return "Nom: " + name + "\n" + "Coût: " + cost;
+		return name;
 	}
 	
 	/**

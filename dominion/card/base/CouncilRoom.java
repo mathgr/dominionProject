@@ -18,9 +18,17 @@ public class CouncilRoom extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		List<Player> otherPlayers = p.getGame().otherPlayers(p);
-		for(int i = 0; i < otherPlayers.size(); i++) {
-			otherPlayers.get(i).drawCard();
+	
+		for(int i = 0; i < 4; i++) {
+			p.getHand().add(p.drawCard());
+			p.getDraw().remove(0);
+		}
+
+		p.incrementBuys(1);
+
+		for(Player pl : p.getGame().otherPlayers(p)) {
+			pl.getHand().add(pl.drawCard());
+			pl.getDraw().remove(0);
 		}
 	}
 	

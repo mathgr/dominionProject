@@ -21,10 +21,15 @@ public class Mine extends ActionCard {
 			int cost = p.getHand().getCard(cardName).getCost();
 			p.getGame().trashCard(p.getHand().getCard(cardName));
 			
-			
-			for(int i = 0; i < //de où on prend les cartes ? ; i++) {
-				
+			CardList availableTreasureCards = new CardList();
+			for(int i = 0; i < p.getGame().availableSupplyCards().size() ; i++) { //on sélectionne chaque carte Treasure de la pile coûtant jusqu'à 3 Pièces de plus que la carte qu'il a écarté 
+				if(p.getGame().availableSupplyCards().get(i).getTypes().contains(CardType.Treasure) && p.getGame().availableSupplyCards().get(i).getCost() <= cost + 3) {
+					availableTreasureCards.add(p.getGame().availableSupplyCards().get(i));
+				}
 			}
+			
+			cardName = p.chooseCard("Choisissez le nom d'une Treasure à recevoir : ", availableTreasureCards, false);
+			p.getHand().add(p.getGame().removeFromSupply(cardName));
 		}
 
 		
