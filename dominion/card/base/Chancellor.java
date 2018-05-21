@@ -23,9 +23,9 @@ public class Chancellor extends ActionCard {
 		System.out.println("Voulez-vous défausser votre deck ? (y/n) ");
 		String answer = p.getGame().readLine();
 		if(answer.equalsIgnoreCase("y")) {
-			for(Card c: p.getDraw()) { //pour chaque carte de la pioche du joueur
-				p.gain(c); //on ajoute la carte c dans la défausse
-				p.getDraw().remove(c); //puis on l'enlève de la pioche
+			while(!p.getDraw().isEmpty()) { //pour chaque carte de la pioche du joueur
+				p.gain(p.getDraw().remove(0)); //On ajoute directement dans la défausse les
+												//cartes qu'on prend dans la pioche du joueur
 			}
 		}
 	}
