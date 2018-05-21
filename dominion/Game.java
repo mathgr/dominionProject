@@ -74,13 +74,13 @@ public class Game {
 		CardList curseStack=new CardList();
 		
 		//Ajout des cartes dans les piles correspondantes
-		for(i=0;i<59;i++) {
+		for(i=0;i<60;i++) {
 			copperStack.add(new Copper());
 		}
-		for(i=0;i<39;i++) {
+		for(i=0;i<40;i++) {
 			silverStack.add(new Silver());
 		}
-		for(i=0;i<29;i++) {
+		for(i=0;i<30;i++) {
 			goldStack.add(new Gold());
 		}
 		for(i=0;i<10*(playerNames.length-1);i++) {
