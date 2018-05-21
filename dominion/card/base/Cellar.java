@@ -24,15 +24,20 @@ public class Cellar extends ActionCard {
 		
 		//défaussez les cartes
 		String cardName ="helloworld"; //attribution bidon pour rentrer dans la boucle
+		int cpt = 0;
 		
-		while(!cardName.equals("")) {
+		while(!cardName.equals("") && p.getHand().size() > 0) {
 			cardName=p.chooseCard("Choisissez une carte à défausser (Entrée pour passer) : ", p.cardsInHand(), true);
 			if(!cardName.equals("")) {
 				//si le joueur rentre un nom de carte, on l'enlève puis on lui 
 				// en pioche une autre
 				p.gain(p.getHand().remove(cardName));
-				p.getHand().add(p.drawCard());
+				cpt++;
 			}
+		}
+		while(cpt > 0) {
+			p.getHand().add(p.drawCard());
+			cpt--;
 		}
 		
 		

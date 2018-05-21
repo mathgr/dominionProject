@@ -22,7 +22,7 @@ public class Chancellor extends ActionCard {
 		
 		System.out.println("Voulez-vous défausser votre deck ? (y/n) ");
 		String answer = p.getGame().readLine();
-		if(answer.equals("y")) {
+		if(answer.equalsIgnoreCase("y")) {
 			for(Card c: p.getDraw()) { //pour chaque carte de la pioche du joueur
 				p.gain(c); //on ajoute la carte c dans la défausse
 				p.getDraw().remove(c); //puis on l'enlève de la pioche

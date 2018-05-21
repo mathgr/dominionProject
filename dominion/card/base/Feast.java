@@ -17,8 +17,7 @@ public class Feast extends ActionCard {
 
 	@Override
 	public void play(Player p) {
-		p.getGame().trashCard(this);
-		p.getHand().remove(this);
+		p.getGame().trashCard(p.getHand().remove(this.getName()));
 		
 		CardList availableCards = new CardList();
 		for(Card c : p.getGame().availableSupplyCards()) {

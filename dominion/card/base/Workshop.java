@@ -1,4 +1,5 @@
 package dominion.card.base;
+import java.util.*;
 import dominion.*;
 import dominion.card.*;
 
@@ -23,7 +24,7 @@ public class Workshop extends ActionCard {
 			}
 		}
 		String cardName = p.chooseCard("Choisissez une carte à recevoir (coûtant jusqu'à 4 Pièces) : ", availableCards, false);
-		p.gain(p.getGame().removeFromSupply(cardName)); //carte à mettre dans la défausse ?
+		p.gain(p.getGame().removeFromSupply(cardName));
 	}
 	
 }

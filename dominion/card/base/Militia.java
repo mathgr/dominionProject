@@ -19,7 +19,7 @@ public class Militia extends AttackCard {
 	public void play(Player p) {
 		p.incrementMoney(2);
 		String cardNameToDiscard;
-		for(Player pl : p.getGame().otherPlayers(p)) {
+		for(Player pl : p.otherPlayers()) {
 			System.out.println("Au joueur " + pl.getName());
 			while(pl.getHand().size() > 3) {
 				cardNameToDiscard = pl.chooseCard("Choisissez une carte de votre main à défausser : ", pl.getHand(), false);
