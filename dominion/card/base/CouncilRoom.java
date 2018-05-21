@@ -13,7 +13,7 @@ import dominion.card.*;
 public class CouncilRoom extends ActionCard {
 
 	public CouncilRoom() {
-		super("CouncilRoom", 5);
+		super("Council Room", 5);
 	}
 
 	@Override
@@ -23,7 +23,6 @@ public class CouncilRoom extends ActionCard {
 		
 		for(int i = 0; i < 4; i++) {
 			p.getHand().add(p.drawCard());
-			System.out.println("carte n°"+i+"piochée");
 		}
 
 		for(Player pl : p.otherPlayers()) {
