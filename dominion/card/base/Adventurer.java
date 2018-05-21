@@ -20,12 +20,11 @@ public class Adventurer extends ActionCard {
 		int cptTreasureCards = 0;
 		CardList revealedCards = new CardList();
 		CardList treasureCards = new CardList();
-		Card c = p.drawCard();
+		Card c;
 		
-		while(c != null && cptTreasureCards < 2) {
+		while((c=p.drawCard()) != null && cptTreasureCards < 2) {
 			
-			System.out.println(c.toString()); //on dévoile la première carte de la pioche
-			
+			System.out.println("Carte dévoilée : "+c.toString()); //on dévoile la carte piochée
 			if(c.getTypes().contains(CardType.Treasure)) { //dans le cas où la  carte piochée est une carte de type Treasure
 				cptTreasureCards++;
 				treasureCards.add(c);
@@ -37,12 +36,10 @@ public class Adventurer extends ActionCard {
 		}
 		
 		
-		for(Card ca : revealedCards) { //défausse en fin de tour les cartes dévoilées
-			p.gain(revealedCards.remove(ca.getName()));
-		}
-		for(Card ca : treasureCards) { //ajoute les catres Treasure dans la main du joueur
-			p.getHand().add(ca);
-		}
+		p.getDiscard().addAll(revealedCards);//défaussage des cartes révélées
+		p.getHand().addAll(treasureCards);//ajout des cartes trésor dans la min du joueur
+		
 	}
+
 	
 }
