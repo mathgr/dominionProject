@@ -51,9 +51,11 @@ public class CardList extends ArrayList<Card> {
 	 * {@code null} sinon
 	 */
 	public Card getCard(String cardName) {
-		for (Card c: this) {
-			if (c.getName().equals(cardName)) {
-				return c;
+		int i=0;
+		int taille=this.size();
+		for(i=0;i<taille;i++) {
+			if (this.get(i).getName().equalsIgnoreCase(cardName)) {
+				return this.get(i);
 			}
 		}
 		return null;
