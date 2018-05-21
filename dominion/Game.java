@@ -104,6 +104,7 @@ public class Game {
 		}
 		
 		//ensuite on ajoute toutes ces piles de cartes dans la réserve
+		this.supplyStacks=new ArrayList<CardList>();
 		this.supplyStacks.add(copperStack);
 		this.supplyStacks.add(silverStack);
 		this.supplyStacks.add(goldStack);
