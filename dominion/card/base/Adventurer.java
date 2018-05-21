@@ -37,7 +37,7 @@ public class Adventurer extends ActionCard {
 		
 		
 		p.getDiscard().addAll(revealedCards);//défaussage des cartes révélées
-		p.getHand().addAll(treasureCards);//ajout des cartes trésor dans la min du joueur
+		p.getHand().addAll(treasureCards);//ajout des cartes trésor dans la main du joueur
 		
 	}
 
