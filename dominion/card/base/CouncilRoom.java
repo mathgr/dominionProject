@@ -19,11 +19,13 @@ public class CouncilRoom extends ActionCard {
 	@Override
 	public void play(Player p) {
 	
+		p.incrementBuys(1);
+		
 		for(int i = 0; i < 4; i++) {
 			p.getHand().add(p.drawCard());
+			System.out.println("carte n°"+i+"piochée");
 		}
 
-		p.incrementBuys(1);
 		for(Player pl : p.otherPlayers()) {
 			pl.getHand().add(pl.drawCard());
 		}
